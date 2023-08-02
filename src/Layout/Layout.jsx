@@ -1,5 +1,5 @@
+import { Outlet } from "react-router-dom";
 import Header from "./Header/Header";
-import Main from "./Main/Main";
 import Footer from "./Footer/Footer";
 import Sidebar from "./Sidebar/Sidebar";
 
@@ -9,7 +9,7 @@ export default function Layout(){
             <Header/>
             <div className="flex">
                 <Sidebar/>
-                <Main/>
+                <Outlet/>
             </div>
             <Footer/>
         </div>

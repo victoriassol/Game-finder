@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
 export default function Sidebar() {
@@ -6,14 +7,26 @@ export default function Sidebar() {
       <nav className="p-10">
         <ul>
           <div class="nav1">
-            <li class="py-3">Home</li>
-            <li class="py-3">Reviews</li>
-            <li class="py-3">New Releases</li>
+            <li class="py-3">
+              <Link to="/">Home</Link>
+            </li>
+            <li class="py-3">
+              <Link to="/reviews">Reviews</Link>
+            </li>
+            <li class="py-3">
+              <Link to="/new">New Releases</Link>
+            </li>
           </div>
           <div class="nav3">
-            <li class="py-3">Popular</li>
-            <li class="glass">Last searches</li>
-            <li class="thumbs">Best of the year</li>
+            <li class="py-3">
+              <Link to="/popular">Popular</Link>
+            </li>
+            <li class="glass">
+              <Link to="/last-searches">Last searches</Link>
+            </li>
+            <li class="thumbs">
+              <Link to="/best-of-the-year">Best of the year</Link>
+            </li>
           </div>
         </ul>
       </nav>
