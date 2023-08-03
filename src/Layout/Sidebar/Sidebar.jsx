@@ -6,25 +6,25 @@ export default function Sidebar() {
     <div className="hidden md:block">
       <nav className="p-10">
         <ul>
-          <div class="nav1">
-            <li class="py-3">
+          <div>
+            <li className="py-3">
               <Link to="/">Home</Link>
             </li>
-            <li class="py-3">
+            <li className="py-3">
               <Link to="/reviews">Reviews</Link>
             </li>
-            <li class="py-3">
-              <Link to="/new">New Releases</Link>
+            <li className="py-3">
+              <Link to="/new">This week</Link>
             </li>
           </div>
-          <div class="nav3">
-            <li class="py-3">
+          <div>
+            <li className="py-3">
               <Link to="/popular">Popular</Link>
             </li>
-            <li class="glass">
+            <li className="py-3">
               <Link to="/last-searches">Last searches</Link>
             </li>
-            <li class="thumbs">
+            <li className="py-3">
               <Link to="/best-of-the-year">Best of the year</Link>
             </li>
           </div>
