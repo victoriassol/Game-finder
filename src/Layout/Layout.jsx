@@ -4,6 +4,7 @@ import Footer from "./Footer/Footer";
 import Sidebar from "./Sidebar/Sidebar";
 
 export default function Layout(){
+
     return (
         <div>
             <Header/>
