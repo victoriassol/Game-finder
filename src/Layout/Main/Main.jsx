@@ -12,9 +12,7 @@ export default function Main({ fetchData, games, page }) {
   };
 
   useEffect(() => {
-    fetchData(
-      `https://api.rawg.io/api/games?key=455a12d11cd1428aa4233ceb7ddb317f&ordering=-rating&page=${page}`
-    );
+    fetchGames();
   }, []);
 
   return (

@@ -9,7 +9,7 @@ export default function Layout({clearResults}){
         <div>
             <Header clearResults={clearResults}/>
             <div className="flex">
-                <Sidebar/>
+                <Sidebar clearResults={clearResults}/>
                 <Outlet/>
             </div>
             <Footer/>

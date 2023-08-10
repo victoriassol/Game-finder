@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "./New.css";
 
-export default function New() {
-  const [games, setGames] = useState([]);
-  const [page, setPage] = useState(1);
+export default function New({ fetchData, games, page }) {
 
   function getNewAndPastDate() {
     var pastDate = new Date();
@@ -23,21 +21,12 @@ export default function New() {
   }
   const newAndPastDate = getNewAndPastDate();
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        `https://api.rawg.io/api/games?key=455a12d11cd1428aa4233ceb7ddb317f&dates=${newAndPastDate}&page=${page}`
-      );
-      const data = await response.json();
-      setGames([...games, ...data.results]);
-      setPage(page + 1);
-    } catch (error) {
-      return;
-    }
+  const fetchGames = async () => {
+    fetchData(`https://api.rawg.io/api/games?key=455a12d11cd1428aa4233ceb7ddb317f&dates=${newAndPastDate}&page=${page}`)
   };
 
   useEffect(() => {
-    fetchData();
+    fetchGames();
   }, []);
 
   return (
@@ -45,7 +34,7 @@ export default function New() {
       <InfiniteScroll
         className="flex flex-wrap justify-evenly gap-1 m-auto py-10 max-w-6xl"
         dataLength={games.length}
-        next={fetchData}
+        next={fetchGames}
         hasMore={true}
         loader={<p>Loading...</p>}
       >
