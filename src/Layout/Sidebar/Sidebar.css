@@ -1,3 +1,23 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.star::before {
+  content: url(https://i.ibb.co/xqcWbzP/Vector.png);
+  padding-right: 0.6rem;
+}
+
+.calendar::before {
+  content: url(https://i.ibb.co/H4PqF5N/Vector-1.pngg);
+  padding-right: 0.6rem;
+}
+
+.glass::before {
+  content: url(https://i.ibb.co/4Wqkc7J/Vector-3.png);
+  padding-right: 0.6rem;
+}
+
+.thumbs::before {
+  content: url(https://i.ibb.co/cwSvjwd/Vector-4.png);
+  padding-right: 0.6rem;
+}

@@ -2,9 +2,9 @@
 import React, { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "./New.css";
+import Card from "Layout/Card/Card";
 
 export default function New({ fetchData, games, page }) {
-
   function getNewAndPastDate() {
     var pastDate = new Date();
     pastDate.setDate(pastDate.getDate() - 7);
@@ -22,7 +22,9 @@ export default function New({ fetchData, games, page }) {
   const newAndPastDate = getNewAndPastDate();
 
   const fetchGames = async () => {
-    fetchData(`https://api.rawg.io/api/games?key=455a12d11cd1428aa4233ceb7ddb317f&dates=${newAndPastDate}&page=${page}`)
+    fetchData(
+      `https://api.rawg.io/api/games?key=455a12d11cd1428aa4233ceb7ddb317f&dates=${newAndPastDate}&page=${page}`
+    );
   };
 
   useEffect(() => {
@@ -39,34 +41,7 @@ export default function New({ fetchData, games, page }) {
         loader={<p>Loading...</p>}
       >
         {games.map((game) => {
-          return (
-            <div
-              className="w-64 sm:min-w-min lg:w-1/4 shadow-lg rounded-md"
-              key={games.indexOf(game)}
-            >
-              <div className="h-40 rounded-md">
-                <img
-                  className="w-full h-40 rounded-md object-cover "
-                  src={game.background_image}
-                  alt=""
-                />
-              </div>
-              <div className="p-2">
-                <div className="flex justify-between">
-                  <h2>{game.name}</h2>
-                  <p>{games.indexOf(game) + 1}</p>
-                </div>
-                <div className="flex justify-between">
-                  <p>Release date:</p>
-                  <p>{game.released}</p>
-                </div>
-                <div className="flex justify-between space-x-10">
-                  <p>Genre:</p>
-                  <p>{game.genres.map((genre) => genre.name + ", ")}</p>
-                </div>
-              </div>
-            </div>
-          );
+          return <Card game={game} games={games} />;
         })}
       </InfiniteScroll>
     </section>
