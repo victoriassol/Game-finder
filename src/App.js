@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchGame } from "features/card/cardSlice";
 import "./App.css";
 import Layout from "./Layout/Layout";
 import Main from "./Layout/Main/Main";
@@ -17,6 +19,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [expand, setExpand] = useState(false);
   const [cardExpanded, setCardExpanded] = useState();
+  const dispatch = useDispatch();
 
   const fetchData = async (url) => {
     try {
@@ -29,21 +32,9 @@ function App() {
     }
   };
 
-  const fetchGamesbyId = async (id) => {
-    try {
-      const response = await fetch(`https://api.rawg.io/api/games/${id}?key=455a12d11cd1428aa4233ceb7ddb317f`);
-      const data = await response.json();
-      console.log(id);
-      console.log(data)
-      setGame(data);
-    } catch (error) {
-      return;
-    }
-  };
-
   const manageExpand = (id) => {
     setCardExpanded(id);
-    fetchGamesbyId(id)
+    dispatch(fetchGame(id))
     setExpand(!expand);
   };
 
@@ -62,7 +53,6 @@ function App() {
             element={
               <Main
                 fetchData={fetchData}
-                fetchGamesbyId={fetchGamesbyId}
                 game={game}
                 games={games}
                 page={page}
