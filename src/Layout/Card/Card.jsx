@@ -5,7 +5,6 @@ export default function Card({games, game, manageExpand}) {
     <>
     <div
       className="my-4 m-auto w-min sm:w-72 m:w-1/4 drop-shadow-lg rounded-md bg-gray-600 text-white"
-      key={games.indexOf(game)}
       onClick={()=> {manageExpand(game.id)}}
     >
       <div className="h-40 rounded-md">
@@ -19,7 +18,7 @@ export default function Card({games, game, manageExpand}) {
         <div className="flex justify-between py-2">
           <h2 className="font-title font-bold text-xl">{game.name}</h2>
           <p className="font-title font-bold text-xl text-green-500 pl-5">
-            #{games.indexOf(game) + 1}
+            #{games.results.indexOf(game) + 1}
           </p>
         </div>
         <div className="flex justify-between">

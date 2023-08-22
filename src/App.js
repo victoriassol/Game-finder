@@ -2,7 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchGame } from "features/card/cardSlice";
+import { fetchGame, fetchClip, fetchScreenshots } from "features/card/cardSlice";
 import "./App.css";
 import Layout from "./Layout/Layout";
 import Main from "./Layout/Main/Main";
@@ -32,9 +32,13 @@ function App() {
     }
   };
 
+   const fetchFullGame = (id) =>{
+     dispatch(fetchGame(id));
+     dispatch(fetchScreenshots(id));
+   };
+
   const manageExpand = (id) => {
     setCardExpanded(id);
-    dispatch(fetchGame(id))
     setExpand(!expand);
   };
 
@@ -57,6 +61,7 @@ function App() {
                 games={games}
                 page={page}
                 manageExpand={manageExpand}
+                fetchFullGame={fetchFullGame}
                 expand={expand}
                 cardExpanded={cardExpanded}
                 clearResults={clearResults}

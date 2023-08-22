@@ -1,53 +1,94 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import {React, useState} from "react";
 
 import "./Main.css";
 import Card from "Layout/Card/Card";
+// import CardExpanded from "Layout/Card/CardExpanded";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useGetGamesQuery } from "features/apiSlice";
 
 export default function Main({
   fetchData,
   fetchGamesbyId,
-  games,
-  page,
+  fetchFullGame,
   expand,
   manageExpand,
   cardExpanded,
 }) {
+  const [page, setPage] = useState(1)
 
-  const { contents, isLoading, error } = useSelector((state) => state.game);
+  const {
+    data: games,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetGamesQuery(page);
 
-  const fetchGames = () => {
-    fetchData(
-      `https://api.rawg.io/api/games?key=455a12d11cd1428aa4233ceb7ddb317f&ordering=-rating&page=${page}`
-    );
+  const loadMore = async () => {
+    setPage(page + 1)
   };
+  console.log(useGetGamesQuery(page));
+  let content;
 
-  useEffect(() => {
-    fetchGames();
-  }, []);
-
-  return (
-    <section>
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  } else if (isSuccess) {
+    content = (
       <InfiniteScroll
         className="flex flex-wrap justify-evenly gap-1 m-auto py-10 max-w-6xl"
-        dataLength={games.length}
-        next={fetchGames}
+        dataLength={games.results?.length || 0}
+        next={loadMore}
         hasMore={true}
         loader={<p>Loading...</p>}
       >
-        {games.map((game) => {
-          return (
-            <Card
-              game={game}
-              games={games}
-              fetchGamesbyId={fetchGamesbyId}
-              manageExpand={manageExpand}
-            />
-          );
-        })}
+        {games.results.map((game) => (
+          <Card
+            key={game.id}
+            game={game}
+            games={games}
+            manageExpand={manageExpand}
+          />
+        ))}
       </InfiniteScroll>
-    </section>
-  );
+    );
+  } else if (isError) {
+    content = <div>{error.toString()}</div>;
+  }
+
+  return <section>{content}</section>;
 }
+
+// return (
+//   <section>
+//     {expand && (
+//       <CardExpanded
+//         cardExpanded={cardExpanded}
+//         game={game}
+//         games={games}
+//         fetchGamesbyId={fetchGamesbyId}
+//         fetchFullGame={fetchFullGame}
+//         manageExpand={manageExpand}
+//       />
+//     )}
+//     <InfiniteScroll
+//       className="flex flex-wrap justify-evenly gap-1 m-auto py-10 max-w-6xl"
+//       dataLength={games.length}
+//       next={fetchGames}
+//       hasMore={true}
+//       loader={<p>Loading...</p>}
+//     >
+//       {games.map((game) => {
+//         return (
+//           <Card
+//             game={game}
+//             games={games}
+//             fetchGamesbyId={fetchGamesbyId}
+//             manageExpand={manageExpand}
+//           />
+//         );
+//       })}
+//     </InfiniteScroll>
+//   </section>
+// );
+//}
