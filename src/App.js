@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchGame, fetchClip, fetchScreenshots } from "features/card/cardSlice";
+import { useState } from "react";
 import "./App.css";
 import Layout from "./Layout/Layout";
 import Main from "./Layout/Main/Main";
@@ -19,27 +17,9 @@ function App() {
   const [page, setPage] = useState(1);
   const [expand, setExpand] = useState(false);
   const [cardExpanded, setCardExpanded] = useState();
-  const dispatch = useDispatch();
-
-  const fetchData = async (url) => {
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      setGames([...games, ...data.results]);
-      setPage(page + 1);
-    } catch (error) {
-      return;
-    }
-  };
-
-   const fetchFullGame = (id) =>{
-     dispatch(fetchGame(id));
-     dispatch(fetchScreenshots(id));
-   };
 
   const manageExpand = (id) => {
     setCardExpanded(id);
-    setExpand(!expand);
   };
 
   const clearResults = () => {
@@ -56,14 +36,13 @@ function App() {
             index
             element={
               <Main
-                fetchData={fetchData}
                 game={game}
                 games={games}
                 page={page}
                 manageExpand={manageExpand}
-                fetchFullGame={fetchFullGame}
                 expand={expand}
                 cardExpanded={cardExpanded}
+                setCardExpanded={setCardExpanded}
                 clearResults={clearResults}
               />
             }
@@ -71,12 +50,12 @@ function App() {
           <Route
             exact
             path="search/:query"
-            element={<Search games={games} page={page} fetchData={fetchData} />}
+            element={<Search games={games} page={page} />}
           />
           <Route
             exact
             path="new"
-            element={<New fetchData={fetchData} games={games} page={page} />}
+            element={<New games={games} page={page} />}
           />
           <Route exact path="reviews" element={<Reviews />} />
           <Route exact path="popular" element={<Popular />} />

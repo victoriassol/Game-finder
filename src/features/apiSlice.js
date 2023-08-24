@@ -17,8 +17,24 @@ export const apiSlice = createApi({
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;
       }
-    })
+    }),
+    getGameById: builder.query({
+      query: (id) => {
+        return {
+          url: `https://api.rawg.io/api/games/${id}?key=455a12d11cd1428aa4233ceb7ddb317f&ordering=-rating`,
+          method: 'GET',
+        };
+      },
+    }),
+    getScreenshots: builder.query({
+      query: (id) => {
+        return {
+          url: `https://api.rawg.io/api/games/${id}/screenshots?key=455a12d11cd1428aa4233ceb7ddb317f&ordering=-rating`,
+          method: 'GET',
+        };
+      },
+    }),
   })
 })
 
-export const { useGetGamesQuery } = apiSlice
+export const { useGetGamesQuery, useGetGameByIdQuery, useGetScreenshotsQuery } = apiSlice
