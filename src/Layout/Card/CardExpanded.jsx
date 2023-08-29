@@ -29,7 +29,7 @@ export default function CardExpanded({ cardExpanded, setCardExpanded }) {
         <div className="flex">
           <div className="relative py-2 w-3/5 p-2 px-4 sm:-top-40">
             <h2 className="font-title font-bold text-2xl sm:text-4xl">
-              {data?.name}
+              {data?.name || ""}
             </h2>
             <p className="max-h-52 overflow-y-scroll">
               {data?.description_raw}
@@ -60,15 +60,17 @@ export default function CardExpanded({ cardExpanded, setCardExpanded }) {
                 </p>
                 <h3 className="text-l text-white/75">Developer</h3>
                 <p className="pb-3 underline">
-                  {data?.developers.map((developer) => developer.name + " ")}
+                  {data?.developers?.map(
+                    (developer) => developer?.name + " " || ""
+                  )}
                 </p>
                 <h3 className="text-l text-white/75">Age rating</h3>
-                <p className="pb-3 underline">{data?.esrb_rating.name}</p>
+                <p className="pb-3 underline">{data?.esrb_rating?.name}</p>
               </div>
             </div>
           </div>
           <div className="relative sm:-top-20 flex flex-wrap w-2/5 pb-10">
-            {screenshots?.results.slice(0, 4).map((screenshot, index) => (
+            {screenshots?.results?.slice(0, 4).map((screenshot, index) => (
               <img
                 key={index}
                 src={screenshot.image}

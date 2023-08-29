@@ -1,38 +1,41 @@
-import React from "react";
+import { React, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Card from "Layout/Card/Card";
+import Games from "Layout/Games/Games";
+import { useSearchGamesQuery } from "features/apiSlice";
 
-export default function Search({fetchData, games, page}) {
+export default function Search({ newQuery }) {
+  const [page, setPage] = useState(1);
   const { query } = useParams();
+  const {
+    data: games,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useSearchGamesQuery(query, page);
+  const loadMore = async () => {
+    setPage(page + 1);
+  };
+  let content;
 
-  const fetchGames = ()=>{
-    fetchData(`https://api.rawg.io/api/games?key=455a12d11cd1428aa4233ceb7ddb317f&search=${query}&ordering=-rating&page=${page}`);
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  } else if (isSuccess) {
+    content = (
+      <Games
+        games={games.results}
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+        error={error}
+        page={page}
+        setPage={setPage}
+        loadMore={loadMore}
+      />
+    );
+  } else if (isError) {
+    content = <div>{error.toString()}</div>;
   }
 
-  useEffect(() => {
-    fetchGames();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
-
-
-  return (
-    <section className="m-auto">
-      <h2>Search results for: {query}</h2>
-      <InfiniteScroll
-        className="flex flex-wrap justify-evenly gap-1 m-auto py-10 max-w-6xl"
-        dataLength={games.length}
-        next={fetchGames}
-        hasMore={true}
-        loader={<p>Loading...</p>}
-      >
-        {games.map((game) => {
-          return (
-            <Card game={game} games={games}/>
-          );
-        })}
-      </InfiniteScroll>
-    </section>
-  );
+  return <section>{content}</section>;
 }

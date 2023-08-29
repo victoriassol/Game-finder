@@ -1,49 +1,42 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { React, useState } from "react";
+
 import "./New.css";
-import Card from "Layout/Card/Card";
+import Games from "Layout/Games/Games";
+import { useGetGamesThisWeekQuery } from "features/apiSlice";
 
-export default function New({ fetchData, games, page }) {
-  function getNewAndPastDate() {
-    var pastDate = new Date();
-    pastDate.setDate(pastDate.getDate() - 7);
-    var date = new Date();
-    var year = date.toLocaleString("default", { year: "numeric" });
-    var month = date.toLocaleString("default", { month: "2-digit" });
-    var day = date.toLocaleString("default", { day: "2-digit" });
-    var pastYear = pastDate.toLocaleString("default", { year: "numeric" });
-    var pastMonth = pastDate.toLocaleString("default", { month: "2-digit" });
-    var pastDay = pastDate.toLocaleString("default", { day: "2-digit" });
-    var formattedDate = year + "-" + month + "-" + day;
-    var formattedPastDate = pastYear + "-" + pastMonth + "-" + pastDay;
-    return `${formattedPastDate},${formattedDate}`;
-  }
-  const newAndPastDate = getNewAndPastDate();
+export default function Best() {
+  const [page, setPage] = useState(1);
+  const {
+    data: games,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetGamesThisWeekQuery(page);
 
-  const fetchGames = async () => {
-    fetchData(
-      `https://api.rawg.io/api/games?key=455a12d11cd1428aa4233ceb7ddb317f&dates=${newAndPastDate}&page=${page}`
-    );
+  const loadMore = async () => {
+    setPage(page + 1);
   };
+  let content;
 
-  useEffect(() => {
-    fetchGames();
-  }, []);
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  } else if (isSuccess) {
+    content = (
+      <Games
+        games={games.results}
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+        error={error}
+        page={page}
+        setPage={setPage}
+        loadMore={loadMore}
+      />
+    );
+  } else if (isError) {
+    content = <div>{error.toString()}</div>;
+  }
 
-  return (
-    <section>
-      <InfiniteScroll
-        className="flex flex-wrap justify-evenly gap-1 m-auto py-10 max-w-6xl"
-        dataLength={games.length}
-        next={fetchGames}
-        hasMore={true}
-        loader={<p>Loading...</p>}
-      >
-        {games.map((game) => {
-          return <Card game={game} games={games} />;
-        })}
-      </InfiniteScroll>
-    </section>
-  );
+  return <section>{content}</section>;
 }

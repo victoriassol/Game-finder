@@ -1,18 +1,10 @@
 import { React, useState } from "react";
 
 import "./Main.css";
-import Card from "Layout/Card/Card";
-import CardExpanded from "Layout/Card/CardExpanded";
-import InfiniteScroll from "react-infinite-scroll-component";
+import Games from "Layout/Games/Games";
 import { useGetGamesQuery } from "features/apiSlice";
 
-export default function Main({
-  fetchGamesbyId,
-  fetchFullGame,
-  manageExpand,
-  cardExpanded,
-  setCardExpanded,
-}) {
+export default function Main() {
   const [page, setPage] = useState(1);
   const {
     data: games,
@@ -31,36 +23,16 @@ export default function Main({
     content = <p>Loading...</p>;
   } else if (isSuccess) {
     content = (
-      <>
-        {cardExpanded && (
-          <CardExpanded
-            cardExpanded={cardExpanded}
-            setCardExpanded={setCardExpanded}
-            games={games}
-            fetchGamesbyId={fetchGamesbyId}
-            fetchFullGame={fetchFullGame}
-            manageExpand={manageExpand}
-          />
-        )}
-        <InfiniteScroll
-          className={`flex flex-wrap justify-evenly gap-1 m-auto py-10 max-w-6xl ${
-            cardExpanded && "overflow-hidden fixed"
-          }`}
-          dataLength={games?.results?.length || 0}
-          next={loadMore}
-          hasMore={true}
-          loader={<p>Loading...</p>}>
-          {games?.results.map((game) => (
-            <Card
-              key={game.id}
-              game={game}
-              games={games?.results}
-              manageExpand={manageExpand}
-              cardExpanded={cardExpanded}
-            />
-          ))}
-        </InfiniteScroll>
-      </>
+      <Games
+        games={games.results}
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+        error={error}
+        page={page}
+        setPage={setPage}
+        loadMore={loadMore}
+      />
     );
   } else if (isError) {
     content = <div>{error.toString()}</div>;
