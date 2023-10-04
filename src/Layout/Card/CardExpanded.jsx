@@ -73,15 +73,10 @@ export default function CardExpanded({ cardExpanded, setCardExpanded }) {
           </div>
         </div>
         <div className="md:flex">
-          <div className="relative py-2 md:w-3/5 p-2 px-4 sm:-top-40">
+          <div className="relative py-2 md:w-3/5 p-2 px-4 md:-top-40">
             <div className="flex">
               {platformSrc.map((pl) => (
-                <img
-                  key={pl.name} // Add a unique key to each image
-                  src={pl.src}
-                  alt={pl.name}
-                  className="p-2"
-                />
+                <img key={pl.name} src={pl.src} alt={pl.name} className="p-2" />
               ))}
             </div>
             <h2 className="font-title font-bold text-2xl sm:text-4xl">
@@ -96,8 +91,8 @@ export default function CardExpanded({ cardExpanded, setCardExpanded }) {
             <button className="inline-flex px-10 m-1 rounded-md font-semibold bg-transparent border-4 border-lightGreen text-lightGreen leading-8">
               Purchase
             </button>
-            <div className="flex flex-wrap">
-              <div className="p-5 w-max">
+            <div className="sm:flex">
+              <div className="m-5 mb-0 sm:mb-auto w-max">
                 <h3 className="font-title text-l text-white/75">
                   Release date
                 </h3>
@@ -110,7 +105,7 @@ export default function CardExpanded({ cardExpanded, setCardExpanded }) {
                 <h3 className="text-l text-white/75">Website</h3>
                 <p className="pb-3 underline">{data?.website || "Unknown"}</p>
               </div>
-              <div className="p-5 w-max">
+              <div className="m-5 mt-0 sm:mt-auto w-max">
                 <h3 className="font-title text-l text-white/75">Genre</h3>
                 <p className="pb-3 underline">
                   {data?.genres?.map((genre) => genre.name + " ") || "Unknown"}
@@ -128,12 +123,12 @@ export default function CardExpanded({ cardExpanded, setCardExpanded }) {
               </div>
             </div>
           </div>
-          <div className="relative max-h-full sm:-top-20 flex flex-wrap md:w-2/5 pb-20">
+          <div className="relative flex flex-wrap md:w-2/5 pb-20 max-h-[500px]">
             {screenshots?.results?.slice(0, 4).map((screenshot, index) => (
               <img
                 key={index}
                 src={screenshot.image}
-                className="sm:w-1/2 p-2 object-cover max-h-60"
+                className="sm:w-1/2 p-2 object-cover"
                 alt=""
               />
             ))}
@@ -145,7 +140,7 @@ export default function CardExpanded({ cardExpanded, setCardExpanded }) {
 
   return (
     <div className="flex fixed absolute md:overflow-hidden inset-0 h-full md:p-10 bg-black/70 z-20">
-      <div className="min-w-[80%] overflow-scroll md:overflow-hidden max-h-full xl:min-w-[60%] lg:my-10 mx-auto max-w-4xl drop-shadow-lg rounded-md bg-gray-600 text-white">
+      <div className=" overflow-scroll lg:overflow-hidden max-h-full xl:min-w-[60%] lg:my-10 mx-auto max-w-4xl drop-shadow-lg rounded-md bg-gray-600 text-white">
         {content}
       </div>
     </div>
