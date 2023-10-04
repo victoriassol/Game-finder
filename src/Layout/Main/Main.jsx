@@ -19,6 +19,7 @@ export default function Main() {
   };
   let content;
 
+  console.log(games);
   if (isLoading) {
     content = <p>Loading...</p>;
   } else if (isSuccess) {
@@ -38,5 +39,5 @@ export default function Main() {
     content = <div>{error.toString()}</div>;
   }
 
-  return <section>{content}</section>;
+  return <div className="">{content}</div>;
 }

@@ -4,7 +4,7 @@ export default function Card({ games, game, manageExpand }) {
   return (
     <>
       <div
-        className="my-4 m-auto w-min sm:w-72 m:w-1/4 drop-shadow-lg rounded-md bg-gray-600 text-white"
+        className="m-auto my-4 lg:mx-2 xl:mx-4 w-full max-w-xs drop-shadow-lg rounded-md bg-gray-600 text-white"
         onClick={() => {
           manageExpand(game.id);
         }}>

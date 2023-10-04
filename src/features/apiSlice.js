@@ -19,7 +19,7 @@ const newAndPastDate = getNewAndPastDate();
 
 export const apiSlice = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: `https://api.rawg.io/api/games?key=455a12d11cd1428aa4233ceb7ddb317f&ordering=-rating` }),
+  baseQuery: fetchBaseQuery({ baseUrl: `https://api.rawg.io/api/games?key=455a12d11cd1428aa4233ceb7ddb317f&ordering=added` }),
   endpoints: builder => ({
     getGames: builder.query({
       query: (page=1) => `&page=${page}`,

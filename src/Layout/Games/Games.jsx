@@ -18,6 +18,12 @@ export default function Games({
   const manageExpand = (id) => {
     setCardExpanded(id);
   };
+  const manageNext = (id) => {
+    setCardExpanded(id++);
+  };
+  const managePrev = (id) => {
+    setCardExpanded(id++);
+  };
 
   let content;
 
@@ -32,10 +38,12 @@ export default function Games({
             setCardExpanded={setCardExpanded}
             games={games}
             manageExpand={manageExpand}
+            manageNext={manageNext}
+            managePrev={managePrev}
           />
         )}
         <InfiniteScroll
-          className={`flex flex-wrap justify-evenly gap-1 m-auto py-10 max-w-6xl ${
+          className={`flex flex-wrap max-w-screen-xl py-10 ${
             cardExpanded && "overflow-hidden fixed"
           }`}
           dataLength={games?.length || 0}

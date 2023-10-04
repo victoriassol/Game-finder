@@ -6,19 +6,42 @@
 ::-webkit-scrollbar {
     width: 3px;
 }
-  
 /* Track */
 ::-webkit-scrollbar-track {
     background: transparent;
 }
-  
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #fff;
     border-radius: 5px;
 }
-  
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.container {
+    position: relative;
+    display: inline-block; /* Display as inline-block to match content size */
+  }
+
+.gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Same width as the image */
+    height: 100%; /* Same height as the image */
+    background: linear-gradient(
+      180deg,
+      rgba(48, 48, 48, 0.0001) 0%,
+      #4b5563
+    );
+  }
+
+  .wish::after{
+    content: '♥';
+    color: white;
+    font-size: 1.5rem;
+    padding-left: 0.6rem;
+    transform: translateY(-2px);
+  }
