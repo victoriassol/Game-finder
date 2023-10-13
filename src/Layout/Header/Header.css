@@ -2,10 +2,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-header{
+.header{
   background: linear-gradient(180deg, #5FE19B 0%, #36B972 50%, #0EA152 100%);
 }
-input{
+.input{
     background-image: url(https://i.ibb.co/0QvR4xC/Vector.png);
     background-position: 10px 10px;
     background-repeat: no-repeat;

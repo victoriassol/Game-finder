@@ -23,16 +23,22 @@ export default function Best() {
     content = <p>Loading...</p>;
   } else if (isSuccess) {
     content = (
-      <Games
-        games={games.results}
-        isLoading={isLoading}
-        isSuccess={isSuccess}
-        isError={isError}
-        error={error}
-        page={page}
-        setPage={setPage}
-        loadMore={loadMore}
-      />
+      <>
+        <h1 className="pt-10 text-4xl font-bold text-white">
+          This week releases
+        </h1>
+
+        <Games
+          games={games.results}
+          isLoading={isLoading}
+          isSuccess={isSuccess}
+          isError={isError}
+          error={error}
+          page={page}
+          setPage={setPage}
+          loadMore={loadMore}
+        />
+      </>
     );
   } else if (isError) {
     content = <div>{error.toString()}</div>;

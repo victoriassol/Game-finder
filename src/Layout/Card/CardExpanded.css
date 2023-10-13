@@ -25,7 +25,7 @@
     display: inline-block; /* Display as inline-block to match content size */
   }
 
-.gradient {
+  .gradient {
     position: absolute;
     top: 0;
     left: 0;

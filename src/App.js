@@ -9,11 +9,10 @@ import New from "./Layout/New/New";
 import Reviews from "./Layout/Reviews/Reviews";
 import Best from "./Layout/Best of the Year/Best";
 import LastSearches from "./Layout/Last Searches/LastSearches";
+import Login from "Layout/Login/Login";
+import Signup from "Layout/Signup/Signup";
 
 function App() {
-  const [games, setGames] = useState([]);
-  const [page, setPage] = useState(1);
-
   const [newQuery, setNewQuery] = useState(false);
   const manageNewQuery = () => {
     setNewQuery(true);
@@ -22,15 +21,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route exact path="login" element={<Login />}/>
+        <Route exact path="register" element={<Signup />}/>
         <Route exact path="/" element={<Layout newQuery={newQuery} manageNewQuery={manageNewQuery}/>}>
           <Route
             exact
             index
             element={
-              <Main
-                games={games}
-                page={page}
-              />
+              <Main/>
             }
           />
           <Route
@@ -44,6 +42,7 @@ function App() {
             element={<New />}
           />
           <Route exact path="reviews" element={<Reviews />} />
+          <Route exact path="reviews/:id" element={<Reviews />} />
           <Route exact path="best-of-the-year" element={<Best />} />
           <Route exact path="last-searches" element={<LastSearches />} />
           <Route path="*" element={<Main />} />

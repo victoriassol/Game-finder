@@ -43,7 +43,7 @@ export default function Games({
           />
         )}
         <InfiniteScroll
-          className={`flex flex-wrap max-w-screen-xl py-10 ${
+          className={`flex flex-wrap max-w-screen-xl ${
             cardExpanded && "overflow-hidden fixed"
           }`}
           dataLength={games?.length || 0}

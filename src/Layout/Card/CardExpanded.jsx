@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import "./CardExpanded.css";
 import { useGetGameByIdQuery, useGetScreenshotsQuery } from "features/apiSlice";
 import PC from "img/PC.svg";
@@ -122,6 +124,9 @@ export default function CardExpanded({ cardExpanded, setCardExpanded }) {
                 </p>
               </div>
             </div>
+            <button className="ml-5 inline-flex px-10 m-1 rounded-3xl font-semibold bg-transparent border-4 border-white text-white leading-8">
+              <Link to={`/reviews/${cardExpanded}`}>Go to reviews</Link>
+            </button>
           </div>
           <div className="relative flex flex-wrap md:w-2/5 pb-20 max-h-[500px]">
             {screenshots?.results?.slice(0, 4).map((screenshot, index) => (
