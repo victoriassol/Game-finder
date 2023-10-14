@@ -24,7 +24,9 @@ export default function Main() {
   } else if (isSuccess) {
     content = (
       <>
-        <h1 className="pt-10 text-4xl font-bold text-white">Welcome</h1>
+        <h1 className="p-2 m-auto lg:m-0 w-max sm:pt-10 text-4xl font-bold text-white">
+          Welcome
+        </h1>
         <Games
           games={games.results}
           isLoading={isLoading}

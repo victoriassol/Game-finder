@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Games from "Layout/Games/Games";
 import { useSearchGamesQuery } from "features/apiSlice";
 
-export default function Search({ newQuery }) {
+export default function Search() {
   const [page, setPage] = useState(1);
   const { query } = useParams();
   const {
@@ -37,5 +37,12 @@ export default function Search({ newQuery }) {
     content = <div>{error.toString()}</div>;
   }
 
-  return <section>{content}</section>;
+  return (
+    <section>
+      <h1 className="p-2 m-auto lg:m-0 w-max sm:pt-10 text-4xl font-bold text-white">
+        Search results: {query}
+      </h1>
+      {content}
+    </section>
+  );
 }

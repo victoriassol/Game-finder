@@ -9,7 +9,7 @@ export default function Layout({ manageNewQuery }) {
   return (
     <div className="bg-neutral-900">
       <Header manageNewQuery={manageNewQuery} />
-      <div className="flex bg-gray-900">
+      <div className="flex bg-gray-900 pt-20 ">
         <Sidebar />
         <Outlet />
       </div>

@@ -16,7 +16,7 @@ export default function Reviews() {
   } else if (!id) {
     content = (
       <>
-        <h1 className="py-10 text-4xl font-bold">Latest reviews</h1>
+        <h1 className="py-5 md:py-10 text-4xl font-bold">Latest reviews</h1>
         <article className="pb-10">
           <div class="flex items-center mb-4 space-x-4">
             <div class="space-y-1 font-medium">
@@ -355,5 +355,7 @@ export default function Reviews() {
       </>
     );
   }
-  return <div className="text-white w-full">{content}</div>;
+  return (
+    <div className="text-white w-full px-5 max-w-screen-lg">{content}</div>
+  );
 }

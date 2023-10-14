@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
+import { auth } from "firebase.js";
 
-export default function Sidebar({ clearResults, fromHeader }) {
+export default function Sidebar({ clearResults, fromHeader, logOut }) {
   return (
     <div className={`${fromHeader ? "" : "hidden"} md:block text-white`}>
       <nav className="p-10">
@@ -35,6 +36,16 @@ export default function Sidebar({ clearResults, fromHeader }) {
               </Link>
             </li>
           </div>
+          {fromHeader &&
+            (auth.currentUser ? (
+              <h3 className="text-white text-lg font-bold">
+                <button onClick={logOut}>Log out</button>
+              </h3>
+            ) : (
+              <h3 className="text-white text-lg font-bold">
+                <Link to="/login">Log in</Link>
+              </h3>
+            ))}
         </ul>
       </nav>
     </div>

@@ -24,7 +24,7 @@ export default function Best() {
   } else if (isSuccess) {
     content = (
       <>
-        <h1 className="pt-10 text-4xl font-bold text-white">
+        <h1 className="p-2 m-auto lg:m-0 w-max sm:pt-10 text-4xl font-bold text-white">
           This week releases
         </h1>
 

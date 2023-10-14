@@ -49,41 +49,45 @@ export default function Header() {
   };
   return (
     <>
-      <header className="header flex p-4 justify-between">
+      <header className="header flex p-4 justify-between items-center fixed w-full z-10">
         <img src={Menu} alt="" className="md:hidden" onClick={handleShowMenu} />
         <img
           src="https://i.ibb.co/YQHSXJX/GAMEFINDER.png"
           alt=""
-          className={`w-48 sm:w-auto ${showInput ? "hidden" : ""}`}
-        />
-        <img
-          src={Search}
-          alt=""
-          className={`md:hidden ${showInput ? "hidden" : ""}`}
-          onClick={handleShowInput}
-        />
-        <input
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyUp={handleKeyPress}
-          type="text"
-          placeholder="Search games..."
-          className={`input md:block w-50 p-2 rounded-md ${
-            showInput ? "" : "hidden"
+          className={`w-40 h-5 sm:h-auto sm:w-auto ${
+            showInput ? "hidden" : ""
           }`}
-          onSubmit={handleSearch}
         />
-        {auth.currentUser ? (
-          <h3 className="underline text-white text-lg">
-            <button onClick={logOut}>Log out</button>
-          </h3>
-        ) : (
-          <h3 className="underline text-white text-lg">
-            <Link to="/login">Log in</Link>
-          </h3>
-        )}
+        <div className="flex gap-10 items-center">
+          <img
+            src={Search}
+            alt=""
+            className={`md:hidden ${showInput ? "hidden" : ""}`}
+            onClick={handleShowInput}
+          />
+          <input
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyUp={handleKeyPress}
+            type="text"
+            placeholder="Search games..."
+            className={`input md:block w-50 p-2 rounded-md ${
+              showInput ? "" : "hidden"
+            }`}
+            onSubmit={handleSearch}
+          />
+          {auth.currentUser ? (
+            <h3 className="text-white text-lg font-bold hidden md:block">
+              <button onClick={logOut}>Log out</button>
+            </h3>
+          ) : (
+            <h3 className="text-white text-lg font-bold hidden md:block">
+              <Link to="/login">Log in</Link>
+            </h3>
+          )}
+        </div>
       </header>
-      {showMenu && <Sidebar fromHeader={true} />}
+      {showMenu && <Sidebar fromHeader={true} logOut={logOut} />}
     </>
   );
 }
